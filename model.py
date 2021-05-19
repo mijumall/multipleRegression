@@ -35,7 +35,7 @@ class Model():
         Y = self.Y
         X = self.X
         k = len(self.X.columns) # Number of explaining variables
-        N = len(self.Y)
+        N = self.N
         
         # Add constant vector and rearrange X's order to compute coefficient.
         X["_constant_"] = 1
@@ -62,7 +62,7 @@ class Model():
         V_hat = (np.linalg.inv((1/N * X.T @ X))) @ \
                     (1/(N-k-1) * X.T @ np.diag(residual**2) @ X) @ \
                     (np.linalg.inv((1/N) * X.T @ X))
-        # V_hat shapes 3 x 3 symmetric matrix. To get V for each coefficient, sum them up:
+        # V_hat shapes 3 x 3 symmetric matrix. To get V for each coefficient, extract diagonal matrix:
         V_hat = np.diag(V_hat)
         
         # Standard error of coefficients
