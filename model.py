@@ -13,7 +13,11 @@ class Model():
         :type X: class "pandas.core.series.Series" or "pandas.core.frame.DataFrame"
         
         Example: 
-            df = load_dataset() 
+            import pandas as pd
+            
+            from model import Model
+            
+            df = pd.read_csv("room.csv")
             Y = df["Price"]
             X = df.drop(columns=["Price"]) 
             m = Model(Y, X)
