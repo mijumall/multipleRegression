@@ -139,12 +139,4 @@ class Model():
             plot("CDF (n)", 224, list(range(n)), self.cdf)
             
             plt.show()
-        
-                
-def load_dataset():
-    df = pd.read_csv("room.csv")
-    
-    return df
-        
 
-    
