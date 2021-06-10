@@ -9,32 +9,26 @@ class Model():
         :param Y: Dependent (explained) variable
         :type Y: class "pandas.core.series.Series"
         
-        :param X: Independent (eplaining) variable(s). 
+        :param X: Independent (explaining) variable(s). 
         :type X: class "pandas.core.series.Series" or "pandas.core.frame.DataFrame"
-        
-        Example: 
-            import pandas as pd
-            
-            from model import Model
-            
-            df = pd.read_csv("room.csv")
-            Y = df["Price"]
-            X = df.drop(columns=["Price"]) 
-            m = Model(Y, X)
         """
         self._init_normal_distribution()
         self.Y = Y
         self.X = pd.DataFrame(X)
         self.N = len(Y)
         
-    def regression(self):
-        """Compute and print multiple regression results."""
+    def regression(self, showCorrelation=True):
+        """Compute and print multiple regression results.
+        
+        :param showCorrelation: Set False if you don't need to check multicollinearity, defaults to True.
+        :type showCorrelation: bool
+        """
         
         print("Regression starts... \n")
         
         Y = self.Y
         X = self.X
-        k = len(self.X.columns) # Number of explaining variables
+        k = len(self.X.columns) # Number of independent variables
         N = self.N
         
         # Add constant vector and rearrange X's order to compute coefficient.
@@ -93,9 +87,11 @@ class Model():
             }
         )
         
-        print(f"Adjusted R-squared: {round(R2, 4)}\n")
+        print(f"Adjusted R-squared: {round(R2, 4)}\n\n")
         print("Two-tailed t-test results:\n")
-        print(df)
+        print(df, '\n\n')
+        print("Correlation coefficient between independent variables:\n")
+        print(X.drop(columns="_constant_").corr())
         
     
     def _init_normal_distribution(self):
@@ -126,7 +122,7 @@ class Model():
     def visualizeDistributions(self):
         n = len(self.pdf)
         with plt.style.context("dark_background"):
-            plt.figure(figsize=(22, 9))
+            plt.figure(figsize=(24, 6))
             plt.subplots_adjust(wspace=0.3, hspace=0.3)
             
             def plot(title, place, x, y):
@@ -137,10 +133,8 @@ class Model():
                 plt.yticks(fontsize=15)
                 plt.grid(alpha=0.5)
                 
-            plot("SND", 221, self.sndx, self.pdf / n )
-            plot("CDF", 222, self.sndx, self.cdf)
-            plot("SND (n)", 223, list(range(n)), self.pdf / n)
-            plot("CDF (n)", 224, list(range(n)), self.cdf)
+            plot("SND", 121, self.sndx, self.pdf / n )
+            plot("CDF", 122, self.sndx, self.cdf)
             
             plt.show()
 
