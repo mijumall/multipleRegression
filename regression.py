@@ -7,16 +7,19 @@ class Model():
         """Multiple regression.
 
         :param Y: Dependent (explained) variable
-        :type Y: class "pandas.core.series.Series"
+        :type Y: class "pandas.core.series.Series" or "pandas.core.frame.DataFrame"
         
         :param X: Independent (explaining) variable(s). 
         :type X: class "pandas.core.series.Series" or "pandas.core.frame.DataFrame"
         """
         self._init_normal_distribution()
-        self.Y = Y
-        self.X = pd.DataFrame(X)
         self.N = len(Y)
+        keys = pd.Series(range(0, self.N))
         
+        # Reassign new index in case Y or X are coming from slices, which causes "matrices not aligned error"
+        self.Y = pd.Series(pd.DataFrame(Y).set_index(keys=keys).iloc[:,0])
+        self.X = pd.DataFrame(X).set_index(keys=keys)
+
     def regression(self, showCorrelation=True):
         """Compute and print multiple regression results.
         
