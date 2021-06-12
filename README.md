@@ -15,7 +15,7 @@ Y = df["Price"]
 X = df.drop(columns=["Price"])
 
 m = Model(Y, X)
-m.regression()
+m.regression(showCorrelation=False) # Turn it True if you wish to check multicollinearity
 ```
 
 The output would look like the following:
@@ -32,12 +32,6 @@ Two-tailed t-test results:
 1       Large   2402.201077   186.803291  12.859522  0.000000e+00
 2         Old   -892.453408   181.975312  -4.904255  3.451671e-07 
 
-
-Correlation coefficient between independent variables:
-
-          Large       Old
-Large  1.000000  0.515945
-Old    0.515945  1.000000
 ```
 
 If you're using Linux (Ubuntu, CentOS) and encounter memory error while working with large datasets, try using swap memory. Here's how to create it:

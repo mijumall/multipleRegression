@@ -92,9 +92,11 @@ class Model():
         
         print(f"Adjusted R-squared: {round(R2, 4)}\n\n")
         print("Two-tailed t-test results:\n")
-        print(df, '\n\n')
-        print("Correlation coefficient between independent variables:\n")
-        print(X.drop(columns="_constant_").corr())
+        print(df, '\n')
+        
+        if showCorrelation:
+            print("\nCorrelation between independent variables:\n")
+            print(X.drop(columns="_constant_").corr())
         
     
     def _init_normal_distribution(self):
