@@ -15,7 +15,8 @@ Y = df["Price"]
 X = df.drop(columns=["Price"])
 
 m = Model(Y, X)
-m.regression(showCorrelation=False) # Turn it True if you wish to check multicollinearity
+
+m.regression(showCorrelation=False, category = ['Orientation']) 
 ```
 
 The output would look like the following:
