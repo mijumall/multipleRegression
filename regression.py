@@ -199,7 +199,7 @@ class Model():
         ### }
         
         categories = list(df[df[category].duplicated() == False][category])
-        categories_map = {c: f'{c}_{c}' for c in categories}
+        categories_map = {c: f'{category}_{c}' for c in categories}
         
         # For columns, replace current 'category' with values of 'categories_map'
         current_cols = list(df.columns)
