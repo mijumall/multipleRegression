@@ -45,11 +45,11 @@ class Model():
             for d in category:
                 self.categorical2dummy(d)
 
-    def regression(self, showCorrelation=True):
+    def regression(self, correlation=True):
         """Compute and print multiple regression results.
         
-        :type showCorrelation: bool
-        :param showCorrelation: 
+        :type correlation: bool
+        :param correlation: 
             Set False if you don't need to check multicollinearity, 
             defaults to True.
         """
@@ -123,7 +123,7 @@ class Model():
         print("Two-tailed t-test results:\n")
         print(df, '\n')
         
-        if showCorrelation:
+        if correlation:
             print("\nCorrelation between independent variables:\n")
             print(X.drop(columns="_constant_").corr())
         

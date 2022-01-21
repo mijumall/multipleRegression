@@ -1,6 +1,6 @@
-# multipleRegression
+# Multiple Regression
 Simple Multiple Regression model with t-test functionality.
-The standard errors are robust and appropriate under both __heteroskedasticity__ and __homoskedasticity__.
+The standard errors are robust and appropriate under both heteroskedasticity and homoskedasticity.
 
 
 Example usage:
@@ -8,31 +8,34 @@ Example usage:
 ```python
 import pandas as pd
 
-from regression import Model
+from regression import Model 
 
-df = pd.read_csv("room.csv")
-Y = df["Price"]
-X = df.drop(columns=["Price"])
+df = pd.read_csv('room.csv')
 
-m = Model(Y, X)
+Y = df['Price']
+X = df[['Large', 'Old', 'Orientation']]
 
-m.regression(showCorrelation=False, category = ['Orientation']) 
+m = Model(Y, X, category=['Orientation'])
+m.regression(correlation=False)
 ```
 
 The output would look like the following:
 ```
 Regression starts... 
 
-Adjusted R-squared: 0.7525
+Explained variable: Price
 
+Adjusted R-squared: 0.7586
 
 Two-tailed t-test results:
 
-         Name          Coef      Std Err    t-value       p-value
-0  _constant_  45522.952887  4301.355214  10.583398  0.000000e+00
-1       Large   2402.201077   186.803291  12.859522  0.000000e+00
-2         Old   -892.453408   181.975312  -4.904255  3.451671e-07 
-
+                Name          Coef      Std Err    t-value   p-value
+0         _constant_  48358.021215  4731.727837  10.219950  0.000000
+1              Large   2249.490178   196.347455  11.456681  0.000000
+2                Old   -809.880972   181.618833  -4.459235  0.000008
+3  Orientation_North   -749.426764  2147.045222  -0.349050  0.724785
+4   Orientation_West  -1627.540061  2087.854230  -0.779528  0.432948
+5  Orientation_South   4311.759920  2865.106092   1.504922  0.131477
 ```
 
 If you're using Linux (Ubuntu, CentOS) and encounter memory error while working with large datasets, try using swap memory. Here's how to create it:
